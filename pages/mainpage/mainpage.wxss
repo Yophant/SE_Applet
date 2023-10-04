@@ -1,0 +1,55 @@
+
+.bgdcontainer{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat #F0C1A6;
+}
+
+.bgdimage {
+  width: 750rpx;
+}
+
+.music-icon {
+  position: absolute;  /* 绝对定位 */
+  top: 92rpx;  /* 距离顶部的距离 */
+  right: 48rpx;  /* 距离右边的距离 */
+  width: 120rpx;  /* 图片宽度 */
+  height: 120rpx;  /* 图片高度 */
+}
+.startboard {
+  position:absolute;
+  top: 550rpx;
+  right: 210rpx;
+  width: 330rpx;
+  height: 443rpx;
+}
+
+.link-area-choosemode {
+  position: absolute;
+  top: 550rpx;
+  right: 230rpx;
+  width: 240rpx;
+  height: 85rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.link-area-rules {
+  position: absolute;
+  top: 720rpx;
+  right: 280rpx;
+  width: 190rpx;
+  height: 60rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.navigator-hover {
+  background-color: transparent;  /* 当点击链接区域时的背景颜色 */
+}

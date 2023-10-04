@@ -1,0 +1,24 @@
+{
+  "pages":[
+    "pages/gamesetting/gamesetting",
+    "pages/rules/rules",
+    "pages/choosemode/choosemode",
+    "pages/ranking/ranking",
+    "pages/mainpage/mainpage",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/pvppage/pvppage",
+    "pages/pvaipage/pvaipage",
+    "pages/onlinepvp/onlinepvp",
+    "pages/funpvp/funpvp"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#A0522D",
+    "navigationBarTitleText": "玄掷玲珑",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#F0C1A6"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

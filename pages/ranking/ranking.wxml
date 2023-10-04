@@ -1,0 +1,12 @@
+<!--pages/ranking/ranking.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" mode="widthFix"></image>
+  <image class="ranker" src="{{rankerSrc}}" mode="widthFix"/>
+  <image class="you_ranking" src="{{you_rankingSrc}}" mode="widthFix"/>
+</view>
+
+<navigator url="/pages/choosemode/choosemode" open-type="navigate" hover-class="navigator-hover">
+    <view bind:tap="redirectToChoosemode">
+      <image class="back2" src="{{back2Src}}" mode="widthFix"/>
+    </view>
+</navigator>

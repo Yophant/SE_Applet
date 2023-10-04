@@ -1,0 +1,12 @@
+<!--pages/gamesetting/gamesetting.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" mode="widthFix"></image>
+  <image class="gameset" src="{{gamesetSrc}}" mode="widthFix"/>
+</view>
+<view>
+  <input id="inputgamesId" class="inputer" type="number" bindinput="handleInput" placeholder="请输入数字，如5/10/15" />
+  <input id="inputchipsId" class="inputer2" type="number" bindinput="handleInput2" placeholder="请输入数字，如1500" />
+</view>
+<view>
+  <image class="sure2" src="{{sure2Src}}" bind:tap="storeInput" mode="widthFix"/>
+</view>

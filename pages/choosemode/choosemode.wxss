@@ -1,0 +1,55 @@
+/* pages/choosemode/choosemode.wxss */
+.bgdcontainer{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat #F0C1A6;
+}
+
+.bgdimage {
+  width: 750rpx;
+}
+.localbattle {
+  position:absolute;
+  top: 70rpx;
+  right: 400rpx;
+  width: 300rpx;
+}
+.onlinebattle {
+  position:absolute;
+  top: 340rpx;
+  right: 50rpx;
+  width: 300rpx;
+}
+.ranking {
+  position:absolute;
+  top: 500rpx;
+  right: 400rpx;
+  width: 300rpx;
+}
+.aibattle {
+  position:absolute;
+  top: 750rpx;
+  right: 400rpx;
+  width: 300rpx;
+}
+.rules {
+  position:absolute;
+  top: 80rpx;
+  right: 50rpx;
+  width: 300rpx;
+}
+.funbattle {
+  position:absolute;
+  top: 600rpx;
+  right: 50rpx;
+  width: 300rpx;
+}
+
+.back2 {
+  position:absolute;
+  top: 1050rpx;
+  right: 500rpx;
+  width: 200rpx;
+}

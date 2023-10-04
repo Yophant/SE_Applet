@@ -1,0 +1,17 @@
+<!--pages/mainpage/mainpage.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" mode="widthFix"></image>
+  <image class="music-icon" src="{{playing ? '/images/onbgm.png' : '/images/offbgm.png'}}" bindtap="toggleMusic" animation="{{animationData}}"/>
+  <image class="startboard" src="{{startboardSrc}}" mode="widthFix"/>
+</view>
+
+<navigator url="/pages/choosemode/choosemode" open-type="navigate" hover-class="navigator-hover">
+    <view class="link-area-choosemode" bind:tap="redirectToChoosemode"></view>
+</navigator>
+<navigator url="/pages/rules/rules" open-type="navigate" hover-class="navigator-hover">
+    <view class="link-area-rules" bind:tap="redirectToRules"></view>
+</navigator>
+
+
+
+

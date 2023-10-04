@@ -1,0 +1,26 @@
+<!--pages/choosemode/choosemode.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" bind:tap="handleClick2" mode="widthFix"></image>
+</view>
+
+<view bindtap="redirectToTarget">
+  <image class="back2" src="{{back2Src}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToOnlinepvp">
+  <image class="onlinebattle" src="{{onlinebattleSrc}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToFunpvp">
+  <image class="funbattle" src="{{funbattleSrc}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToPvaipage">
+  <image class="aibattle" src="{{aibattleSrc}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToPvppage">
+  <image class="localbattle" src="{{localbattleSrc}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToRules">
+  <image class="rules" src="{{rulesSrc}}" mode="widthFix"/>
+</view>
+<view bindtap="redirectToRanking">
+  <image class="ranking" src="{{rankingSrc}}" mode="widthFix"/>
+</view>

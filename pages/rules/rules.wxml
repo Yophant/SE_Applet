@@ -1,0 +1,15 @@
+<!--pages/rules/rules.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" mode="widthFix"></image>
+  <image class="rule" src="{{ruleSrc}}" mode="widthFix"/>
+  <image class="ruleimages" animation="{{animationData}}" src="{{images[currentImageIndex]}}" mode="widthFix"></image>
+</view>
+
+<view class="control-icons" bind:tap="handleClick2">
+  <image class="nextstep" src="{{nextstepSrc}}" mode="widthFix" bind:tap="nextImage"/>
+  <image class="prestep" src="{{prestepSrc}}" mode="widthFix" bind:tap="prevImage"/>
+</view>
+
+<view bindtap="redirectToTarget">
+  <image class="back2" src="{{back2Src}}" mode="widthFix"/>
+</view>

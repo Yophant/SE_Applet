@@ -1,0 +1,38 @@
+/* pages/gamesetting/gamesetting.wxss */
+.bgdcontainer{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat #F0C1A6;
+}
+
+.bgdimage {
+  width: 750rpx;
+}
+.gameset {
+  position:absolute;
+  top: 200rpx;
+  right: 126rpx;
+  width: 500rpx;
+}
+.inputer{
+  position:absolute;
+  top: 352rpx;
+  right: 140rpx;
+  width: 500rpx;
+  text-align: center;
+}
+.inputer2{
+  position:absolute;
+  top: 540rpx;
+  right: 140rpx;
+  width: 500rpx;
+  text-align: center;
+}
+.sure2{
+  position:absolute;
+  top: 800rpx;
+  right: 290rpx;
+  width: 200rpx;
+}

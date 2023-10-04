@@ -1,0 +1,42 @@
+/* pages/rules/rules.wxss */
+.bgdcontainer{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat #F0C1A6;
+}
+
+.bgdimage {
+  width: 750rpx;
+}
+.rule {
+  position:absolute;
+  top: 0rpx;
+  right: 76rpx;
+  width: 600rpx;
+}
+.back2 {
+  position:absolute;
+  top: 1050rpx;
+  right: 500rpx;
+  width: 200rpx;
+}
+.nextstep{
+  position:absolute;
+  top: 870rpx;
+  right: 158rpx;
+  width: 150rpx;
+}
+.prestep{
+  position:absolute;
+  top: 870rpx;
+  right: 450rpx;
+  width: 150rpx;
+}
+.ruleimages{
+  position:absolute;
+  top: 250rpx;
+  right: 155rpx;
+  width: 450rpx;
+}
