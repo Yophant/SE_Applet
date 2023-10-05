@@ -1,16 +1,18 @@
 {
   "pages":[
+    "pages/mainpage/mainpage",
+    "pages/pvppage/pvppage",
     "pages/gamesetting/gamesetting",
     "pages/rules/rules",
     "pages/choosemode/choosemode",
     "pages/ranking/ranking",
-    "pages/mainpage/mainpage",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/pvppage/pvppage",
     "pages/pvaipage/pvaipage",
     "pages/onlinepvp/onlinepvp",
-    "pages/funpvp/funpvp"
+    "pages/funpvp/funpvp",
+    "pages/finalpage/finalpage",
+    "pages/pvaisetting/pvaisetting"
   ],
   "window":{
     "backgroundTextStyle":"light",

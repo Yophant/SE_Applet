@@ -1,4 +1,7 @@
 /* pages/gamesetting/gamesetting.wxss */
+page{
+  background-color: #182327;
+}
 .bgdcontainer{
   display: flex;
   height: 100%;
@@ -18,15 +21,17 @@
 }
 .inputer{
   position:absolute;
+  font-size: 45rpx;
   top: 352rpx;
-  right: 140rpx;
+  right: 127rpx;
   width: 500rpx;
   text-align: center;
 }
 .inputer2{
   position:absolute;
+  font-size: 45rpx;
   top: 540rpx;
-  right: 140rpx;
+  right: 130rpx;
   width: 500rpx;
   text-align: center;
 }

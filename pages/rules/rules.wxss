@@ -1,4 +1,7 @@
 /* pages/rules/rules.wxss */
+page{
+  background-color: #2a1a23;
+}
 .bgdcontainer{
   display: flex;
   height: 100%;

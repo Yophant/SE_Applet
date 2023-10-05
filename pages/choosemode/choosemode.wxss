@@ -1,4 +1,7 @@
 /* pages/choosemode/choosemode.wxss */
+page{
+  background-color: #1a2a22;
+}
 .bgdcontainer{
   display: flex;
   height: 100%;

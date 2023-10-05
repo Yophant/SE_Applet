@@ -1,4 +1,6 @@
-
+page{
+  background-color:  #3c1a18;
+}
 .bgdcontainer{
   display: flex;
   height: 100%;

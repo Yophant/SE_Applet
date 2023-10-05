@@ -1,4 +1,5 @@
 // pages/choosemode/choosemode.js
+const app = getApp();
 Page({
 
   /**
@@ -12,7 +13,8 @@ Page({
     rankingSrc:"/images/ranking.png",
     funbattleSrc:"/images/funbattle.png",
     rulesSrc:"/images/rules.png",
-    back2Src:"/images/back2.png"
+    back2Src:"/images/back2.png",
+    isPlaying: app.globalData.isPlaying
   },
 
   /**
@@ -25,6 +27,20 @@ Page({
     this.audioCtx3 = wx.createInnerAudioContext();
     this.audioCtx3.src = '/sounds/click1.mp3';
     this.audioCtx3.volume = 0.5 ;
+  },
+  toggleMusic: function() {
+    if (app.globalData.isPlaying) {
+        app.audio.pause();
+        this.setData({ isPlaying: false });
+        app.globalData.isPlaying = false;
+    } else {
+        app.audio.play();
+        this.setData({ isPlaying: true });
+        app.globalData.isPlaying = true;
+    }
+  },
+  onShow: function() {
+    this.setData({ isPlaying: app.globalData.isPlaying });
   },
   handleClick: function() {
     this.audioCtx2.play();  // 播放点击音效
@@ -52,14 +68,18 @@ Page({
   },
   redirectToFunpvp: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/gamesetting/gamesetting'
+    wx.showToast({
+      title: '敬请期待',
+      icon: 'none',
+      duration: 1500, 
     });
   },
   redirectToOnlinepvp: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/onlinepvp/onlinepvp'
+    wx.showToast({
+      title: '敬请期待',
+      icon: 'none',
+      duration: 1500, 
     });
   },
   redirectToPvppage: function() {
@@ -71,7 +91,7 @@ Page({
   redirectToPvaipage: function() {
     this.handleClick2();
     wx.redirectTo({
-        url: '/pages/gamesetting/gamesetting'
+        url: '/pages/pvaisetting/pvaisetting'
     });
   },
 

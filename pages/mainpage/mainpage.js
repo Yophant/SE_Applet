@@ -1,4 +1,5 @@
 // pages/mainpage/mainpage.js
+const app = getApp();
 Page({
 
   /**
@@ -6,6 +7,7 @@ Page({
    */
   data: {
     playing:false,
+    isPlaying: app.globalData.isPlaying,
     bgdimgSrc: "/images/newest_mainpage.png",
     startboardSrc: "/images/startboard.png",
     animationData: {} // 用于保存动画数据
@@ -13,8 +15,8 @@ Page({
   
   onLoad: function() {
     // 初始化音乐播放器
-    this.audioCtx = wx.createInnerAudioContext();
-    this.audioCtx.src = '/bgm/prologue.mp3';
+    // this.audioCtx = wx.createInnerAudioContext();
+    // this.audioCtx.src = 'https://m704.music.126.net/20231005110258/4a5eed030174eb4766cfa127b4d41ec4/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/9835534795/e5c7/6864/6610/b06524e2e873b78703f5e7004d212973.m4a?authSecret=0000018afdb2f37a07730aaba1371f18';
     this.audioCtx2 = wx.createInnerAudioContext();
     this.audioCtx2.src = '/sounds/click0.mp3';
     this.audioCtx2.volume = 0.3 ;
@@ -42,22 +44,24 @@ Page({
     });
     // 将动画恢复到原位置，准备下一次动画
     setTimeout(() => {
-        // 音乐播放与暂停逻辑
-        if (this.data.playing) {
-            this.audioCtx.pause();
-        } else {
-            this.audioCtx.play();
-        }
-        // 切换播放状态
-        this.setData({
-            playing: !this.data.playing
-        });
-        this.animation.translateY(0).step({ duration: 800 });
-        this.setData({
-            animationData: this.animation.export()
-        });
+    // 音乐播放与暂停逻辑
+    if (app.globalData.isPlaying) {
+      app.globalData.audio.pause();
+      this.setData({ isPlaying: false });
+       app.globalData.isPlaying = false;
+     } else {
+      app.globalData.audio.play();
+      this.setData({ isPlaying: true });
+      app.globalData.isPlaying = true;
+     }
+      this.animation.translateY(0).step({ duration: 800 });
+      this.setData({
+        animationData: this.animation.export()
+      });
     }, 500); // 500ms是动画的时长
-
+  },
+  onShow: function() {
+    this.setData({ isPlaying: app.globalData.isPlaying });
   },
   redirectToChoosemode: function() {
     this.handleClick();

@@ -8,8 +8,6 @@ Page({
     bgdimgSrc: "/images/bgdimage5.png",
     gamesetSrc: "/images/gameset.png",
     sure2Src: "/images/sure2.png",
-    userInputgames:null,
-    userInputchips:null,
     // tempInputgames:null,
     // tempInputchips:null
   },
@@ -28,19 +26,28 @@ Page({
   },
   handleInput: function(e) {
     // 实时获取用户输入并保存在页面的临时数据中
-    this.userInputgames = e.detail.value;
+    this.data.userInputgames = e.detail.value;
   },
   handleInput2: function(e) {
-    this.userInputchips = e.detail.value;
+    this.data.userInputchips = e.detail.value;
   },
   storeInput: function() {
     this.handleClick();
-    // 当用户点击“确定”图标时，将临时保存的输入值赋给data中的storedValue
-    console.log("variable1:", this.userInputgames);
-    console.log("variable2:", this.userInputchips);
-    wx.redirectTo({
-      url: '/pages/pvppage/pvppage'
-    });
+    if(this.data.userInputgames === undefined || this.data.userInputchips===undefined){
+      wx.showToast({
+        title: '请输入游戏局数和筹码数',
+        icon: 'none',  // 为 'none' 时，不显示图标只显示文字
+        duration: 2000  // 提示的延迟时间，单位毫秒，默认：1500
+      });
+    }else{
+      wx.redirectTo({
+        url: `/pages/pvppage/pvppage?userInputgames=${this.data.userInputgames}&userInputchips=${this.data.userInputchips}`
+      });
+    }
+    console.log(this.data.userInputgames);
+    console.log(this.data.userInputchips);
+    
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

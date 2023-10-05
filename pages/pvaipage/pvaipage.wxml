@@ -1,2 +1,82 @@
-<!--pages/pvaipage/pvaipage.wxml-->
-<text>pages/pvaipage/pvaipage.wxml</text>
+<!--pages/pvppage/pvppage.wxml-->
+<view class="bgdcontainer">
+  <image class="bgdimage" src="{{bgdimgSrc}}" mode="widthFix"></image>
+  <image class="player1board" src="{{player1boardSrc}}" mode="widthFix"/>
+  <image class="player2board" src="{{player2boardSrc}}" mode="widthFix"/>
+  <image class="box1" src="{{box1Src}}" mode="widthFix"/>
+  <image class="box2" src="{{box1Src}}" mode="widthFix"/>
+  <image class="profilephoto1" src="{{profilephoto1Src}}" mode="widthFix"/>
+  <image class="profilephoto2" src="{{profilephoto2Src}}" mode="widthFix"/>
+  <image class="gametable1" src="{{gametableSrc}}" mode="widthFix"/>
+  <image class="gametable2" src="{{gametableSrc}}" mode="widthFix"/>
+
+  <image class="dicebutton1" src="{{dicebuttonSrc}}" data-player="player1" bindtap="onLockDicesClick" mode="widthFix"/>
+  <image class="dicebutton2" src="{{dicebuttonSrc}}" data-player="player2" bindtap="onLockDicesClick2" mode="widthFix"/>
+
+  <image class="house" src="{{houseSrc}}" bind:tap="showHouseBoard" mode="widthFix"/>
+
+  <view wx:for="{{player1}}" wx:key="index" bindtap="toggleLock" data-index="{{index}}">
+    <image src="/images/dice{{item.value}}.png" class="dice diceposition{{index}}" data-index="{{index}}" data-player="player1"  mode="widthFix"></image>
+    <image src="/images/lock.png" wx:if="{{item.isLocked}}" class="lockposition{{index}}" mode="widthFix"></image>
+  </view>
+  <view wx:for="{{player2}}" wx:key="index" bindtap="toggleLock2" data-index="{{index}}">
+    <image src="/images/dice{{item.value}}.png" class="dice dice2position{{index}}" data-index="{{index}}" data-player="player2"  mode="widthFix"></image>
+    <image src="/images/lock.png" wx:if="{{item.isLocked}}" class="lock2position{{index}}" mode="widthFix"></image>
+  </view>
+  <!-- <image src="/images/dice5.png" class="dice" mode="widthFix"></image> -->
+</view>
+
+<view>
+    <text class="textgames">第{{throwRounds}}轮锁定</text>
+</view>
+<view>
+    <text class="textthrows">剩余局数:{{userInputgames}}</text>
+</view>
+<view>
+  <text class="texttotalgames">总局数:{{totalGames}}</text>
+</view>
+<view>
+    <text class="textmutiplying">当前倍率：{{Multiplying}}</text>
+</view>
+<view>
+    <text class="textlockdice" wx:if="{{showLockText}}">点击图标选择需要锁定的骰子</text>
+</view>
+<view>
+    <text class="textlockdice2" wx:if="{{showLockText2}}">点击图标选择需要锁定的骰子</text>
+</view>
+<view wx:if="{{showChipChoice}}">
+    <text class="textchoosechips">点击选择筹码</text>
+    <!-- 添加四个筹码图标，每个图标上绑定点击事件和数据值 -->
+    <image src="/images/chip0.png" class="chip10" data-value="0" bindtap="onChipClick" mode="widthFix"></image>
+    <image src="/images/chip1.png" class="chip11" data-value="1" bindtap="onChipClick" mode="widthFix"></image>
+    <image src="/images/chip2.png" class="chip12" data-value="2" bindtap="onChipClick" mode="widthFix"></image>
+    <image src="/images/chip3.png" class="chip13" data-value="3" bindtap="onChipClick" mode="widthFix"></image>
+</view>
+<view wx:if="{{showChipChoice2}}">
+    <text class="textchoosechips2">点击选择筹码</text>
+    <image src="/images/chip0.png" class="chip20" data-value="0" bindtap="onChipClick2" mode="widthFix"></image>
+    <image src="/images/chip1.png" class="chip21" data-value="1" bindtap="onChipClick2" mode="widthFix"></image>
+    <image src="/images/chip2.png" class="chip22" data-value="2" bindtap="onChipClick2" mode="widthFix"></image>
+    <image src="/images/chip3.png" class="chip23" data-value="3" bindtap="onChipClick2" mode="widthFix"></image>
+</view>
+<view class="houseboard" wx:if="{{showHouseBoardUp}}">
+    <image src="{{houseboardSrc}}" class="popupHouseboard" mode="widthFix"/>
+    <!-- 链接区域1 -->
+    <view class="link-area-tomainpage" bindtap="navigateToMainpage"></view>
+    <!-- 链接区域2 -->
+    <view class="link-area-hidehouseboard" bindtap="hideHouseBoard"></view>
+</view>
+<view class="roundresultboard" wx:if="{{roundresultShowup}}">
+    <image src="{{roundboardSrc}}" class="roundboard" mode="widthFix"/>
+    <text class="textroundresult">玩家一从玩家二中得到了{{roundscoreDifference}}筹码</text>
+    <!-- 点击进入下一局 -->
+    <view class="textclicktonextround">点击进行下一局</view>
+    <view class="link-area-confirmtonext" bindtap="reStartRound"></view>
+</view>
+
+ <view>
+    <text class="value-chips1">{{playerchips1}}</text>
+ </view>
+ <view>
+    <text class="value-chips2">{{playerchips2}}</text>
+ </view>
