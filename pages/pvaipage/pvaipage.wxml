@@ -44,16 +44,16 @@
 <view>
     <text class="textlockdice2" wx:if="{{showLockText2}}">点击图标选择需要锁定的骰子</text>
 </view>
-<view wx:if="{{showChipChoice}}">
-    <text class="textchoosechips">点击选择筹码</text>
+<!-- <view wx:if="{{showChipChoice}}"> -->
+    <!-- <text class="textchoosechips">点击选择倍率</text> -->
     <!-- 添加四个筹码图标，每个图标上绑定点击事件和数据值 -->
-    <image src="/images/chip0.png" class="chip10" data-value="0" bindtap="onChipClick" mode="widthFix"></image>
-    <image src="/images/chip1.png" class="chip11" data-value="1" bindtap="onChipClick" mode="widthFix"></image>
-    <image src="/images/chip2.png" class="chip12" data-value="2" bindtap="onChipClick" mode="widthFix"></image>
-    <image src="/images/chip3.png" class="chip13" data-value="3" bindtap="onChipClick" mode="widthFix"></image>
-</view>
+    <!-- <image src="/images/chip0.png" class="chip10" data-value="0" bindtap="onChipClick" mode="widthFix"></image> -->
+    <!-- <image src="/images/chip1.png" class="chip11" data-value="1" bindtap="onChipClick" mode="widthFix"></image> -->
+    <!-- <image src="/images/chip2.png" class="chip12" data-value="2" bindtap="onChipClick" mode="widthFix"></image> -->
+    <!-- <image src="/images/chip3.png" class="chip13" data-value="3" bindtap="onChipClick" mode="widthFix"></image> -->
+<!-- </view> -->
 <view wx:if="{{showChipChoice2}}">
-    <text class="textchoosechips2">点击选择筹码</text>
+    <text class="textchoosechips2">点击选择倍率</text>
     <image src="/images/chip0.png" class="chip20" data-value="0" bindtap="onChipClick2" mode="widthFix"></image>
     <image src="/images/chip1.png" class="chip21" data-value="1" bindtap="onChipClick2" mode="widthFix"></image>
     <image src="/images/chip2.png" class="chip22" data-value="2" bindtap="onChipClick2" mode="widthFix"></image>

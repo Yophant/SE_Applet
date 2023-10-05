@@ -218,20 +218,20 @@ page{
 .value-chips1{
   display: flex;
   position:absolute;
-  color: #FFFACD;
+  color: #7659df;
   font-size: 45rpx;
   top: 172rpx;
-  right: -70rpx;
+  right: -30rpx;
   background-color: transparent;
   width: 400rpx;
 }
 .value-chips2{
   display: flex;
   position:absolute;
-  color: #FFFACD;
+  color: #a4edf7;
   font-size: 45rpx;
   top: 1111rpx;
-  right: -2rpx;
+  right: -30rpx;
   background-color: transparent;
   width: 400rpx;
 }

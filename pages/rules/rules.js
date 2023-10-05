@@ -19,7 +19,8 @@ Page({
       "/images/rule5.png",
       "/images/rule6.png",
       "/images/rule7.png",
-      "/images/rule8.png"
+      "/images/rule8.png",
+      "/images/rule9.png"
     ],
     animationData: {}
   },
@@ -40,7 +41,7 @@ Page({
 
   // 点击向左或向右的图标时调用的函数
   prevImage: function() {
-    let newIndex = (this.data.currentImageIndex - 1 + 8) % 8;
+    let newIndex = (this.data.currentImageIndex - 1 + 9) % 9;
     this.setData({
         currentImageIndex: newIndex
     });
@@ -48,7 +49,7 @@ Page({
   },
 
   nextImage: function() {
-    let newIndex = (this.data.currentImageIndex + 1) % 8;
+    let newIndex = (this.data.currentImageIndex + 1) % 9;
     this.setData({
         currentImageIndex: newIndex
     });

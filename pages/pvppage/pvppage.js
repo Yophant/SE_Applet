@@ -117,6 +117,15 @@ Page({
         showLockText2: true,
         throwRounds : this.data.throwRounds + 1
     });
+    //！！！！！！！！！！！！！！！！！！！！！！！！彩蛋！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    const targetValues = [5, 3, 4, 2, 6];
+    if (this.checkDiceValues(this.data.player1, targetValues) || this.checkDiceValues(this.data.player2, targetValues)) {
+      wx.showToast({
+          title: 'Ke Xiao YYDS！',
+          icon: 'none',
+          duration: 3000
+      });
+    }
   },
   // rethrowDice: function() {
   //   let player1Dices = this.data.player1;
@@ -157,6 +166,7 @@ Page({
   // },
   onChipClick: function(e) {
     let chipValue = Number(e.currentTarget.dataset.value);
+    console.log(this.data.Multiplying)
     this.setData({
         showChipChoice: false,
         isPlayer1Chiped: true ,
@@ -468,5 +478,13 @@ Page({
     if (pairs === 2) score += 10;
     console.log(score)
     return score;
+  },
+  checkDiceValues: function(player, targetValues) {
+    for (let i = 0; i < player.length; i++) {
+        if (player[i].value !== targetValues[i]) {
+            return false;
+        }
+    }
+    return true;
   }
 })

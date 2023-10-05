@@ -1,5 +1,6 @@
 // pages/pvppage/pvppage.js
 Page({
+
   /**
    * 页面的初始数据
    */
@@ -8,9 +9,9 @@ Page({
     houseSrc:"/images/house.png",
     houseboardSrc:"/images/houseboard.png",
     box1Src:"/images/box1.png",
-    player1boardSrc:"/images/player1board.png",
+    player1boardSrc:"/images/aiplayerboard.png",
     player2boardSrc:"/images/player2board.png",
-    profilephoto1Src:"/images/profilephoto1.png",
+    profilephoto1Src:"/images/aiprofilephoto.jpg",
     profilephoto2Src:"/images/profilephoto2.png",
     gametableSrc:"/images/gametable.png",
     dicebuttonSrc:"/images/logo.png",
@@ -156,6 +157,7 @@ Page({
   // },
   onChipClick: function(e) {
     let chipValue = Number(e.currentTarget.dataset.value);
+    console.log(this.data.Multiplying)
     this.setData({
         showChipChoice: false,
         isPlayer1Chiped: true ,
