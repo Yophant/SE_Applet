@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/mainpage/mainpage",
+    "pages/pvaisetting/pvaisetting",
     "pages/pvppage/pvppage",
     "pages/gamesetting/gamesetting",
     "pages/rules/rules",
@@ -11,8 +12,7 @@
     "pages/pvaipage/pvaipage",
     "pages/onlinepvp/onlinepvp",
     "pages/funpvp/funpvp",
-    "pages/finalpage/finalpage",
-    "pages/pvaisetting/pvaisetting"
+    "pages/finalpage/finalpage"
   ],
   "window":{
     "backgroundTextStyle":"light",

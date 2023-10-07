@@ -89,6 +89,7 @@ page{
   background-color: transparent;
   border: 1px solid transparent;
   text-align: center;
+  z-index: 20;
 }
 .houseboard{
   display: flex;
@@ -96,6 +97,7 @@ page{
   top: 350rpx;
   right: 180rpx;
   width: 400rpx;
+  z-index: 20;
 }
 .link-area-tomainpage{
   position: absolute;
@@ -130,6 +132,7 @@ page{
   top: 1032rpx;
   right: 25rpx;
   width: 150rpx;
+  z-index: 10;
 }
 .textgames {
   display: flex;
@@ -159,6 +162,7 @@ page{
   top: 20rpx;
   right: 490rpx;
   background-color: transparent;
+  white-space: nowrap; 
 }
 .texttotalgames{
   display: flex;

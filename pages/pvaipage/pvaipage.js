@@ -39,6 +39,20 @@ Page({
     isPlayer2Chiped: false,
     throwRounds:1,
     roundscoreDifference : 0,
+    robotmutiplying: 0 ,
+    targetPenta: false ,
+    targetQuadra: false ,
+    targetSmallStraight : false ,
+    targetLargeStraight : false ,
+    targetBeforeSmallStraight : false ,
+    targetBeforeQuadra : false , 
+    targetTwoPairs : false ,
+    targetSinglePair : false ,
+    completeSmallStraight : false ,
+    completeBeforeSmallStraight : false ,
+    completeSinglePair : false ,
+    completeTwoPairs : false ,
+    completeTriple : false ,
   },
 
   /**
@@ -77,11 +91,11 @@ Page({
     if(this.data.isPlayer1Done){
       return ;
     }
-    this.setData({
-        isPlayer1Done: true,
-        showLockText: false,
-        showChipChoice: true
-    });
+    // this.setData({
+    //     isPlayer1Done: true,
+    //     showLockText: false,
+    //     showChipChoice: true
+    // });
 
   },
   onLockDicesClick2: function(e) {
@@ -91,9 +105,27 @@ Page({
     this.setData({
         isPlayer2Done: true,
         showLockText2: false,
-        showChipChoice2: true
+        showChipChoice2: true,
+        isPlayer1Done: true,
+        showLockText: false,
+        // showChipChoice: true
     });
-    
+    let player2Values = this.extractDiceValues(this.data.player2);
+    //let robotDecision = this.robotDecisionFunction(this.data.player1, player2Values);  // 传递player2的value数组给机器人的决策函数
+    // 更新机器人的骰子状态
+    this.setData({
+      player1: this.robotDecisionFunction(this.data.player1, player2Values)
+    });
+
+  },
+
+  // 提取骰子的value列表函数
+  extractDiceValues: function(playerDices) {
+    let values = [];
+    for(let i = 0; i < playerDices.length; i++) {
+      values.push(playerDices[i].value);
+    }
+    return values;
   },
   rethrowAndReset: function() {
     let updateDice = dice => {
@@ -171,20 +203,37 @@ Page({
     }
   },
   onChipClick2: function(e) {
-    let chipValue = Number(e.currentTarget.dataset.value);
+    let mutiplyingValue = Number(e.currentTarget.dataset.value);
     this.setData({
         showChipChoice2: false,
         isPlayer2Chiped: true,
-        Multiplying: this.data.Multiplying + chipValue
+        Multiplying: this.data.Multiplying + mutiplyingValue + Number(this.data.robotmutiplying)
     });
-    if (this.data.isPlayer1Chiped && this.data.isPlayer2Chiped) {
-      this.rethrowAndReset();
-    }
+    this.rethrowAndReset();
     if (this.data.throwRounds === 3) {
       this.endRound();
     }
   },
+  scoreCalculate2: function(){
+    let player2BaseScore = 0;
+    for (let dice of this.data.player2) {
+      player2BaseScore += dice.value;
+    }
+    let player2ExtraScore = this.getExtraScore(this.data.player2);
+    let player2TotalScore = player2BaseScore + player2ExtraScore;
+    return player2TotalScore
+  },
+  scoreCalculate1: function(){
+    let player1BaseScore = 0;
+    for (let dice of this.data.player1) {
+      player1BaseScore += dice.value;
+    }
+    let player1ExtraScore = this.getExtraScore(this.data.player1);
+    let player1TotalScore = player1BaseScore + player1ExtraScore;
+    return player1TotalScore
+  },
   endRound: function() {
+    let that = this;
     // 减少玩家指定的回合数
     this.setData({
         userInputgames: this.data.userInputgames - 1 ,
@@ -208,7 +257,7 @@ Page({
     let player2TotalScore = player2BaseScore + player2ExtraScore;
     // 计算两位玩家的得分差异
     let scoreDifference = player1TotalScore - player2TotalScore;
-    // 如果需要，你还可以用setData将这个得分差异存储到data中
+    // 用setData将得分差异存储到data中
     let roundchipdifference = scoreDifference * this.data.Multiplying
     console.log(this.data.Multiplying)
     console.log(scoreDifference)
@@ -273,6 +322,16 @@ Page({
         isPlayer2Chiped: false,        
         showLockText: true,
         showLockText2: true,
+        targetBeforeQuadra : false ,
+        targetBeforeSmallStraight :false ,
+        targetLargeStraight :false ,
+        targetTwoPairs : false ,
+        targetLargeStraight : false ,
+        completeSmallStraight : false ,
+        completeSinglePair : false ,
+        completeTwoPairs : false ,
+        completeTriple :false ,
+        completeBeforeSmallStraight :false ,
       });
     }else{
       this.resultGame();
@@ -444,7 +503,7 @@ Page({
     // 根据出现次数计算额外得分
     for (let key in counts) {
         if (counts[key] === 3) score += 10;
-        if (counts[key] === 4) score += 60;
+        if (counts[key] === 4) score += 40;
         if (counts[key] === 5) score += 100;
     }
     // 获取五个骰子值并排序
@@ -457,7 +516,6 @@ Page({
             uniqueValues[i + 2] - uniqueValues[i + 1] === 1 &&
             uniqueValues[i + 2] - uniqueValues[i] === 2) {
             score += 30;
-            // 找到一个连续的就跳出循环，避免多次加分
         }
     }
     // 检查是否出现两次两个相同的数字
@@ -469,5 +527,479 @@ Page({
     if (pairs === 2) score += 10;
     console.log(score)
     return score;
+  },
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  robotDecisionFunction: function(player1Dices, player2Values) {
+    let self = this 
+    let player1Values = this.extractDiceValues(this.data.player1)
+    if(this.isPenta(player1Values)){
+      console.log('isPenta');
+      this.data.player1 = this.choosePentaLock(this.data.player1) ;
+    }
+    if(this.isLargeStraight(player1Values)){
+      console.log('isLargeStraight');
+      this.chooseLargeStraightLock();
+      console.log(this.data.player1);
+    }
+    if(this.isSmallStraight(player1Values)){
+      console.log('isSmallStraight');
+      this.chooseSmallStraightLock()  ;
+    }
+    if(this.isBeforeQuadra(player1Values)&&this.data.completeBeforeSmallStraight===false){
+      let player = this.chooseTripleLock(this.data.player1) ;
+      console.log('isTriple') ;
+      this.setData({
+        player1 : player 
+      });
+    }
+    if (this.isBeforeSmallStraight(player1Values)&&this.data.completeTriple===false&&this.data.completeBeforeSmallStraight===false&&this.data.completeSinglePair===false&&this.data.completeTwoPairs===false) {
+      console.log("The dice values have the potential to form a small straight on the next roll!");
+      this.chooseBeforeSmallStraight() ;
+    }
+    if (this.isQuadra(player1Values)){
+      console.log('isQuadra');
+      this.data.player1 = this.chooseQuadraLock(this.data.player1) ;
+    }
+    if(this.isSinglePair(player1Values)){
+      console.log('isSinglePair')
+      this.chooseSinglePair() ; 
+    }
+    if(this.isTwoPairs(player1Values)&&this.data.throwRounds===1&&!this.isBeforeQuadra(player1Values)&&!this.isBeforeSmallStraight(player1Values)){
+      console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
+      this.chooseTwoPairs() ;
+    }
+    if(this.isTwoPairs(player1Values)&&this.data.throwRounds===2&&this.data.isSinglePair===false){
+      if(this.data.completeTwoPairs===false){
+        console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
+        this.chooseTwoPairs() ;
+      }
+      if(this.data.completeTriple){
+        console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
+        this.chooseTwoPairs() ;
+      }
+    }
+    if(this.isBeforeQuadra(player1Values)&&(this.data.completeSinglePair||this.data.completeTwoPairs)){
+      let player = this.chooseTripleLock(this.data.player1) ;
+      this.data.player1 = player ;
+    }
+    //根据player2Values数组来决策
+    console.log("玩家一的得分为:",this.scoreCalculate1())
+    return player1Dices;
+  },
+
+  isBeforeSmallStraight: function(values) {
+    const threeSequences = [
+        "1,2,3", "2,3,4", "3,4,5", "4,5,6"  // 三连续序列
+    ];
+    const almostFourSequences = [
+        "1,2,4", "1,3,4", "2,3,5", "2,4,5", "3,4,6", "3,5,6"  // 缺少一个数的四连续序列
+    ];
+    const fourSequences = ["1,2,3,4", "2,3,4,5", "3,4,5,6"];  // 完整的四连续序列
+    // 去除数组中的重复项
+    let uniqueValues = Array.from(new Set(values));
+    let sortedValues = uniqueValues.sort((a, b) => a - b).join(",");
+    // 检查是否存在四连续序列
+    for (let seq of fourSequences) {
+        if (sortedValues.includes(seq)) {
+            return false;
+        }
+    }
+    // 遍历可能的序列，并检查去重后的玩家骰子值中是否包含它们
+    for (let seq of threeSequences.concat(almostFourSequences)) {
+        if (sortedValues.includes(seq)) {
+            this.setData({ targetBeforeSmallStraight: true });
+            return true;
+        }
+    }
+    return false;
+    },
+
+    isBeforeQuadra: function(values) {
+      let count = [0, 0, 0, 0, 0, 0]; // 为每个数字初始化计数器
+      for (let v of values) {
+          count[v - 1]++; // 计数每个数字
+      }
+      for (let c of count) {
+          if (c === 3) {
+              this.setData({ targetBeforeQuadra: true });
+              this.data.completeTriple = true ;
+              return true; // 如果我们找到三个相同的数字
+          } else if (c >= 4) {
+              return false; // 如果找到四个或更多相同的数字
+          }
+      }
+      return false; 
+  },
+
+  isQuadra: function(values) {
+    let count = [0, 0, 0, 0, 0, 0]; // 为每个数字初始化计数器
+    for (let v of values) {
+        count[v - 1]++; // 计数每个数字
+    }
+    for (let c of count) {
+        if (c === 4) {
+            this.setData({ targetQuadra: true }); 
+            return true; // 如果我们找到四个相同的数字
+        } else if (c === 5) {
+            return false; // 如果找到五个相同的数字
+        }
+    }
+    return false; 
+  },
+
+  isSmallStraight: function(values) {
+    let sortedValues = [...new Set(values)].sort(); // 去重并排序
+    console.log(sortedValues);
+    for (let i = 0; i < sortedValues.length - 3; i++) {
+        if (sortedValues[i + 3] - sortedValues[i] === 3) { 
+            // 检查连续的四个值
+            if (sortedValues.length===4 || sortedValues[sortedValues.length-1]-sortedValues[0]===5) {
+                // 确保没有连续的五个值
+                console.log('SmallStraightSmallStraightSmallStraightSmallStraightSmallStraightSmallStraight')
+                this.setData({ targetSmallStraight: true });
+                return true;
+            }
+        }
+    }
+    return false;
+  },
+
+  isPenta: function(values) {
+    let count = [0, 0, 0, 0, 0, 0]; // 为每个数字初始化计数器
+    for (let v of values) {
+        count[v - 1]++; // 计数每个数字
+    }
+    for (let c of count) {
+        if (c === 5) {
+            this.setData({ targetPenta: true });
+            return true; // 如果找到五个相同的数字
+        }
+    }
+    return false; 
+  },
+  
+  isLargeStraight: function(values) {
+    const sortedValues = values.slice().sort(); 
+    if (JSON.stringify(sortedValues) === JSON.stringify([1, 2, 3, 4, 5]) ||
+        JSON.stringify(sortedValues) === JSON.stringify([2, 3, 4, 5, 6])) {
+        this.setData({ targetLargeStraight: true });
+        console.log('大顺子')
+        return true;
+    }
+    return false;
+  },
+
+  isTwoPairs: function(diceValues) {
+    // 排序
+    let sortedValues = [...diceValues].sort().join("");
+    // 匹配数字序列
+    let twoPairsPatterns = [
+      "11225", "12255", "11255", "11226", "12266", "11266",
+      "11335", "13355", "11355", "11336", "13366", "11366",
+      "11445", "14455", "11455", "11446", "14466", "11466",
+      "11556", "15566", "11566", "22336", "23366", "22366",
+      "22446", "24466", "22466", "22556", "25566", "22566",
+      "11122","11222","11333","11133","11444","11144","11555","11155","11666","11166","22333","22233","22444","22244","22555","22255","22666","22266","33444","33344","33555","33355","33666","33366","44555","44455","44466","44666","55666","55566"
+    ];
+  
+    if (twoPairsPatterns.includes(sortedValues)) {
+      this.setData({ targetTwoPairs: true });
+      return true;
+    }
+    return false;
+  },
+  isSinglePair: function(diceValues) {
+    // 排序
+    let sortedValues = [...diceValues].sort().join("");
+    // 匹配数字序列
+    let singlePairPatterns = [
+      "11256", "12256", "12556", "12566"
+    ];
+    if (singlePairPatterns.includes(sortedValues)) {
+      this.setData({ targetSinglePair: true });
+      console.log("只有一对骰子相同只有一对骰子相同只有一对骰子相同只有一对骰子相同只有一对骰子相同只有一对骰子相同")
+      return true;
+    }
+    return false;
+  },
+  choosePentaLock: function(player1) {
+    let valueCounter = {};
+    // 统计每个骰子值的出现次数
+    player1.forEach(die => {
+        if (valueCounter[die.value]) {
+            valueCounter[die.value]++;
+        } else {
+            valueCounter[die.value] = 1;
+        }
+    });
+    // 找到一个值出现了5次
+    let pentaValue = Object.keys(valueCounter).find(key => valueCounter[key] === 5);
+    if (pentaValue) {
+        let lockCount = 0;
+        for (let i = 0; i < player1.length; i++) {
+            if (lockCount < 5) {
+                player1[i].isLocked = true;
+                lockCount++;
+            }
+        }
+    }
+    return player1;
+  },
+  chooseQuadraLock: function(player1) {
+    let valueCounter = {};
+    // 统计每个骰子值的出现次数
+    player1.forEach(die => {
+        if (valueCounter[die.value]) {
+            valueCounter[die.value]++;
+        } else {
+            valueCounter[die.value] = 1;
+        }
+    });
+    // 找到一个值出现了4次，但没有出现5次的情况
+    let quadraValue = Object.keys(valueCounter).find(key => valueCounter[key] === 4);
+    if (quadraValue) {
+        let lockCount = 0;
+        for (let i = 0; i < player1.length; i++) {
+            if (player1[i].value == quadraValue && lockCount < 4) {
+                player1[i].isLocked = true;
+                lockCount++;
+            }
+        }
+    }
+    console.log(player1);
+    return player1;
+  },
+  chooseTripleLock: function(player1) {
+    let valueCounter = {};
+    // 统计每个骰子值的出现次数
+    player1.forEach(die => {
+        if (valueCounter[die.value]) {
+            valueCounter[die.value]++;
+        } else {
+            valueCounter[die.value] = 1;
+        }
+    });
+    // 找到一个值出现了3次，但没有出现4次或5次的情况
+    let tripleValue = Object.keys(valueCounter).find(key => valueCounter[key] === 3);
+    if (tripleValue) {
+        let lockCount = 0;
+        for (let i = 0; i < player1.length; i++) {
+            if (player1[i].value == tripleValue && lockCount < 3) {
+                player1[i].isLocked = true;
+                lockCount++;
+            }
+        }
+    }
+    this.data.completeTriple === true ;
+    console.log(player1);
+    return player1;
+  },
+  chooseLargeStraightLock: function() {
+    for (let i = 0; i < 5; i++) {
+      this.data.player1[i].isLocked = true;
+    }
+  },
+
+  chooseSmallStraightLock: function() {
+    console.log("执行chooseSmallStraightLock");
+    let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark = 6 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    console.log(indices) ;
+    if(this.data.player1[indices[4]].value - this.data.player1[indices[3]].value ==0){
+      mark = 4 ;
+    }
+    for(let i = 0; i < 4; i++) {  // 只有两种连续的四个数字的可能性
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value !==1){
+          if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value !==0){
+            mark = i
+            count = 0 ;
+          }
+          if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0){
+            mark = i ;
+          }
+        }
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===1) {
+            count++ ;
+            console.log("小顺子统计:",count);
+            // 使用已排序的索引来锁定骰子
+            if(count===3){
+              console.log('mark的值为：',mark)
+              for(let i = 0; i < 5; i++){
+                if(i!==mark){
+                  this.data.player1[indices[i]].isLocked = true;
+                }
+              }
+              this.data.completeSmallStraight = true ; 
+              break;
+            }
+        }
+    }
+    console.log(this.data.player1) ;
+  },
+  chooseSinglePair: function() {
+    //let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark = 6 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    for(let i = 0; i < 4; i++) {  // 只有一组两个相同数字，且没有其他情况
+        if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value ==0){
+           mark = i ;
+           break ;
+        }
+    }
+    for(let i = 0; i < 5; i++){
+      if(i==mark){
+        this.data.player1[indices[i]].isLocked = true;
+        this.data.player1[indices[i+1]].isLocked = true;
+      }
+    }
+    this.data.completeSinglePair = true ;
+    console.log(this.data.player1) ;
+  },
+
+  chooseTwoPairs: function() {
+    console.log('开始锁定两对骰子开始锁定两对骰子开始锁定两对骰子');
+    //let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark1 = 6 ;
+    let mark2 = 8 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    for(let i = 0; i < 4; i++) {  // 只有一组两个相同数字，且没有其他情况
+        if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value ==0){
+           mark1 = i ;
+           break ;
+        }
+    }
+    for(let i = 0; i < 4; i++) {  // 只有一组两个相同数字，且没有其他情况
+      if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value ==0 && i!==mark1){
+         mark2 = i ;
+         break ;
+      }
   }
+    for(let i = 0; i < 5; i++){
+      if(i===mark2){
+        this.data.player1[indices[i]].isLocked = true;
+        this.data.player1[indices[i+1]].isLocked = true;
+      }
+    }
+    if(this.data.player1[indices[mark2]].value===6&&this.data.player1[indices[mark2-1]].value===5){
+      this.data.player1[indices[mark2-1]].isLocked = true ;
+    }
+    if(this.data.player1[indices[mark2]].value===6&&this.data.player1[indices[mark1]].value===5){
+      this.data.player1[indices[mark2-1]].isLocked = true ;
+      this.data.player1[indices[mark2-2]].isLocked = true ;
+    }
+    this.data.completeTwoPairs = true ;
+    console.log(this.data.player1) ;
+  },
+
+chooseSmallStraightLock: function() {
+    console.log("执行chooseSmallStraightLock");
+    let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark = 6 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    console.log(indices) ;
+    if(this.data.player1[indices[4]].value - this.data.player1[indices[3]].value ==0){
+      if(this.data.player1[indices[3]].isLocked){mark=4}else{mark=3}
+    }
+    for(let i = 0; i < 4; i++) {  // 只有两种连续的四个数字的可能性
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value !==1){
+          if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value !==0){
+            mark = i
+            count = 0 ;
+          }
+          if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0){
+            if(this.data.player1[indices[i+1]].isLocked){
+              mark = i 
+            }else{
+              mark = i+1
+            }
+          }
+        }
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===1) {
+            count++ ;
+            console.log("小顺子统计:",count);
+            // 使用已排序的索引来锁定骰子
+            if(count===3){
+              console.log('mark的值为：',mark)
+              for(let i = 0; i < 5; i++){
+                if(i!==mark){
+                  this.data.player1[indices[i]].isLocked = true;
+                }
+              }
+              this.data.completeSmallStraight = true ; 
+              break;
+            }
+        }
+    }
+    console.log(this.data.player1) ;
+  },
+
+  chooseBeforeSmallStraight: function() {
+    console.log("执行chooseBeforeSmallStraight");
+    let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark = 6 ;
+    let mark1 = 8 ;
+    let mark2 = 8 ;
+    let begin = 0 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    console.log(indices) ;
+    for(let i = 0; i < 4; i++) {  // 只有两种连续的四个数字的可能性
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value !==1){
+          if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value !==0){
+            count = 0 ;
+          }
+          if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0){
+            mark1 = i ;
+          }
+          if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0 && i!==mark1){
+            mark2 = i ;
+          }
+        }
+        if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===1) {
+            count++ ;
+            // 使用已排序的索引来锁定骰子
+            if(count===2){
+              let stop = i+1 ;
+              for(let i = 0; i < 4; i++){
+                if(mark1!==8&&mark2!==8) {break ;}
+                if(mark1!==8&&mark2===8) {
+                  if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value > 1){
+                    if(i=0) {begin=1}
+                    if(i=3) {begin=0}
+                  }
+                }
+                if(mark1===8&&mark2===8) {
+                  if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value > 1){
+                    if(stop===3) {begin=1}
+                    if(stop===4) {begin=2}
+                  }
+                }
+              }
+              console.log('在BeforeSmallStraight里的mark的值为：',mark)
+              for(let i = begin; i <= stop; i++){
+                if(i!==mark1&&i!=mark2&&i!==mark){
+                  this.data.player1[indices[i]].isLocked = true;
+                }
+              }
+              this.data.completeBeforeSmallStraight = true ; 
+              break;
+            }
+        }
+    }
+    console.log(this.data.player1) ;
+    console.log("begin:",begin);
+    console.log("mark1:",mark1);
+    console.log("mark2:",mark2);
+  },
+
 })

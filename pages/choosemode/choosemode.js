@@ -77,7 +77,7 @@ Page({
   redirectToOnlinepvp: function() {
     this.handleClick2();
     wx.showToast({
-      title: '敬请期待',
+      title: '服务器下线了哦~',
       icon: 'none',
       duration: 1500, 
     });
