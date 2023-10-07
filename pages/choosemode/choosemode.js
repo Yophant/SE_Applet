@@ -68,10 +68,8 @@ Page({
   },
   redirectToFunpvp: function() {
     this.handleClick2();
-    wx.showToast({
-      title: '敬请期待',
-      icon: 'none',
-      duration: 1500, 
+    wx.redirectTo({
+      url: '/pages/funpvpsetting/funpvpsetting'
     });
   },
   redirectToOnlinepvp: function() {

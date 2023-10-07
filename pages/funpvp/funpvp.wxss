@@ -1,1 +1,453 @@
-/* pages/funpvp/funpvp.wxss */
+/* pages/pvppage/pvppage.wxss */
+page{
+  background-color: #1D3A34;
+}
+.bgdcontainer{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: no-repeat #1D3A34;
+}
+.bgdimage {
+  width: 750rpx;
+}
+.player1board{
+  position:absolute;
+  top: 90rpx;
+  right: 190rpx;
+  width: 375rpx;
+}
+.player2board{
+  position:absolute;
+  top: 1030rpx;
+  right: 190rpx;
+  width: 375rpx;
+}
+.profilephoto1{
+  position:absolute;
+  top: 100rpx;
+  right: 20rpx;
+  width: 140rpx;
+}
+.profilephoto2{
+  position:absolute;
+  top: 1040rpx;
+  right: 580rpx;
+  width: 140rpx;
+}
+.box1{
+  position:absolute;
+  top: 83rpx;
+  right: 3rpx;
+  width: 180rpx;
+}
+.box2{
+  position:absolute;
+  top: 1020rpx;
+  right: 562rpx;
+  width: 180rpx;
+}
+.house{
+  position:absolute;
+  top: 5rpx;
+  right: 330rpx;
+  width: 80rpx;
+  z-index: 10;
+}
+.gametable1{
+  position:absolute;
+  top: 260rpx;
+  right: 25rpx;
+  width: 700rpx;
+}
+.gametable2{
+  position:absolute;
+  top: 720rpx;
+  right: 25rpx;
+  width: 700rpx;
+}
+.roundresultboard{
+  display: flex;
+  position:absolute;
+  top: 460rpx;
+  right: 135rpx;
+  width: 500rpx;
+}
+.roundboard{
+  position:absolute;
+  top: 0rpx;
+  right: 0rpx;
+  width: 500rpx;
+}
+.link-area-confirmtonext{
+  position: absolute;
+  top: -500rpx;
+  right: -150rpx;
+  width: 750rpx;
+  height: 1334rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-align: center;
+  z-index: 20;
+}
+.houseboard{
+  display: flex;
+  position:absolute;
+  top: 350rpx;
+  right: 180rpx;
+  width: 400rpx;
+  z-index: 20;
+}
+.link-area-tomainpage{
+  position: absolute;
+  top: 80rpx;
+  right: 69rpx;
+  width: 220rpx;
+  height: 85rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-align: center;
+}
+.link-area-hidehouseboard{
+  position: absolute;
+  top: 278rpx;
+  right: 69rpx;
+  width: 220rpx;
+  height: 85rpx;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-align: center;
+}
+.dicebutton1{
+  position:absolute;
+  top: 85rpx;
+  right: 578rpx;
+  width: 150rpx;
+}
+.dicebutton2{
+  position:absolute;
+  top: 1032rpx;
+  right: 25rpx;
+  width: 150rpx;
+  z-index: 10;
+}
+.textgames {
+  display: flex;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 50rpx;
+  top: 640rpx;
+  right: 175rpx;
+  background-color: transparent;
+  width: 400rpx;
+}
+.textmutiplying {
+  display: flex;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 50rpx;
+  top: 570rpx;
+  right: 175rpx;
+  background-color: transparent;
+  width: 400rpx;
+}
+.textthrows{
+  display: flex;
+  position:absolute;
+  color: #FFA500;
+  font-size: 45rpx;
+  top: 20rpx;
+  right: 490rpx;
+  background-color: transparent;
+  white-space: nowrap; 
+}
+.texttotalgames{
+  display: flex;
+  position:absolute;
+  color: #FFA500;
+  font-size: 45rpx;
+  top: 20rpx;
+  right: 50rpx;
+  background-color: transparent;
+}
+.textroundresult{
+  display: flex;
+  position:absolute;
+  color: #302D0F;
+  font-size: 35rpx;
+  top: 65rpx;
+  right: 50rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: center;
+}
+.textclicktonextround{
+  display: flex;
+  position:absolute;
+  color: #808000;
+  font-size: 35rpx;
+  top: 175rpx;
+  right: -25rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: center;
+}
+.textchoosechips{
+  display: block;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 40rpx;
+  top: 468rpx;
+  right: 280rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: left;
+  white-space : nowrap /* 防止文本自动换行 */
+}
+.textchoosechips2{
+  display: block;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 40rpx;
+  top: 740rpx;
+  right: 280rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: left;
+  white-space: nowrap; /* 防止文本自动换行 */
+}
+.value-chips1{
+  display: flex;
+  position:absolute;
+  color: #7659df;
+  font-size: 45rpx;
+  top: 172rpx;
+  right: -30rpx;
+  background-color: transparent;
+  width: 400rpx;
+}
+.value-chips2{
+  display: flex;
+  position:absolute;
+  color: #a4edf7;
+  font-size: 45rpx;
+  top: 1111rpx;
+  right: -30rpx;
+  background-color: transparent;
+  width: 400rpx;
+}
+
+.textlockdice{
+  display: block;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 40rpx;
+  top: 468rpx;
+  right: 230rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: center;
+  white-space: nowrap; /* 防止文本自动换行 */
+}
+.textlockdice2{
+  display: block;
+  position:absolute;
+  color: #FFFACD;
+  font-size: 40rpx;
+  top: 740rpx;
+  right: 230rpx;
+  background-color: transparent;
+  width: 400rpx;
+  text-align: center;
+  white-space: nowrap; /* 防止文本自动换行 */
+}
+
+.dice{
+  width: 110rpx;
+}
+.diceposition0 {
+  position:absolute;
+  /* 第一个骰子图片的位置 */
+  left: 62rpx;
+  top: 344rpx;
+}
+.diceposition1 {
+  position:absolute;
+  /* 第二个骰子图片的位置 */
+  left: 191rpx;
+  top: 344rpx;
+}
+.diceposition2 {
+  position:absolute;
+  left: 320rpx;
+  top: 344rpx;
+}
+.diceposition3 {
+  position:absolute;
+  left: 450rpx;
+  top: 344rpx;
+}
+.diceposition4 {
+  position:absolute;
+  left: 579rpx;
+  top: 344rpx;
+}
+.dice2position0 {
+  position:absolute;
+  /* 第一个骰子图片的位置 */
+  left: 62rpx;
+  top: 804rpx;
+}
+.dice2position1 {
+  position:absolute;
+  /* 第二个骰子图片的位置 */
+  left: 192rpx;
+  top: 804rpx;
+}
+.dice2position2 {
+  position:absolute;
+  left: 321rpx;
+  top: 804rpx;
+}
+.dice2position3 {
+  position:absolute;
+  left: 450rpx;
+  top: 804rpx;
+}
+.dice2position4 {
+  position:absolute;
+  left: 579rpx;
+  top: 804rpx;
+}
+.lockposition0 {
+  width: 60rpx;
+  position:absolute;
+  left: 88rpx;
+  top: 282rpx;
+}
+.lockposition1 {
+  width: 60rpx;
+  position:absolute;
+  left: 217rpx;
+  top: 282rpx;
+}
+.lockposition2 {
+  width: 60rpx;
+  position:absolute;
+  left: 346rpx;
+  top: 282rpx;
+}
+.lockposition3 {
+  width: 60rpx;
+  position:absolute;
+  left: 475rpx;
+  top: 282rpx;
+}
+.lockposition4 {
+  width: 60rpx;
+  position:absolute;
+  left: 604rpx;
+  top: 282rpx;
+}
+.lock2position0 {
+  width: 60rpx;
+  position:absolute;
+  left: 85rpx;
+  top: 930rpx;
+}
+.lock2position1 {
+  width: 60rpx;
+  position:absolute;
+  left: 214rpx;
+  top: 930rpx;
+}
+.lock2position2 {
+  width: 60rpx;
+  position:absolute;
+  left: 343rpx;
+  top: 930rpx;
+}
+.lock2position3 {
+  width: 60rpx;
+  position:absolute;
+  left: 472rpx;
+  top: 930rpx;
+}
+.lock2position4 {
+  width: 60rpx;
+  position:absolute;
+  left: 601rpx;
+  top: 930rpx;
+}
+
+.chip10{
+  width: 50rpx;
+  position:absolute;
+  left: 340rpx;
+  top: 475rpx;
+}
+.chip11{
+  width: 50rpx;
+  position:absolute;
+  left: 435rpx;
+  top: 475rpx;
+}
+.chip12{
+  width: 50rpx;
+  position:absolute;
+  left: 530rpx;
+  top: 475rpx;
+}
+.chip13{
+  width: 50rpx;
+  position:absolute;
+  left: 625rpx;
+  top: 475rpx;
+}
+.chip20{
+  width: 50rpx;
+  position:absolute;
+  left: 340rpx;
+  top: 747rpx;
+}
+.chip21{
+  width: 50rpx;
+  position:absolute;
+  left: 435rpx;
+  top: 747rpx;
+}
+.chip22{
+  width: 50rpx;
+  position:absolute;
+  left: 530rpx;
+  top: 747rpx;
+}
+.chip23{
+  width: 50rpx;
+  position:absolute;
+  left: 625rpx;
+  top: 747rpx;
+}
+
+/* .dice-box{
+  display: flex;
+  position: absolute;
+  width: 100rpx;
+  background-color: transparent;
+}
+.dicepg1{
+  position:absolute;
+  top: 500rpx;
+  right: 250rpx;
+  width: 80rpx;
+}
+.dicepg2{
+  position:absolute;
+  top: 500rpx;
+  right: 100rpx;
+  width: 80rpx;
+} */

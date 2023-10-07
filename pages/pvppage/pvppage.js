@@ -453,7 +453,7 @@ Page({
     // 根据出现次数计算额外得分
     for (let key in counts) {
         if (counts[key] === 3) score += 10;
-        if (counts[key] === 4) score += 60;
+        if (counts[key] === 4) score += 40;
         if (counts[key] === 5) score += 100;
     }
     // 获取五个骰子值并排序

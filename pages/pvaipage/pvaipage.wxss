@@ -53,6 +53,7 @@ page{
   top: 5rpx;
   right: 330rpx;
   width: 80rpx;
+  z-index: 10;
 }
 .gametable1{
   position:absolute;

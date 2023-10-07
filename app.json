@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/mainpage/mainpage",
+    "pages/funpvpsetting/funpvpsetting",
     "pages/pvaisetting/pvaisetting",
     "pages/pvppage/pvppage",
     "pages/gamesetting/gamesetting",
