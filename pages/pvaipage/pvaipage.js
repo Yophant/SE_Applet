@@ -11,8 +11,8 @@ Page({
     box1Src:"/images/box1.png",
     player1boardSrc:"/images/aiplayerboard.png",
     player2boardSrc:"/images/player2board.png",
-    profilephoto1Src:"/images/aiprofilephoto.jpg",
-    profilephoto2Src:"/images/profilephoto2.png",
+    profilephoto1Src:"https://img1.imgtp.com/2023/10/09/Kgk14CQQ.jpg",
+    profilephoto2Src:"https://img1.imgtp.com/2023/10/09/J0NzDXWz.png",
     gametableSrc:"/images/gametable.png",
     dicebuttonSrc:"/images/logo.png",
     dice1Src:"/images/dice1.png",
@@ -545,6 +545,13 @@ Page({
       console.log('isSmallStraight');
       this.chooseSmallStraightLock()  ;
     }
+    if(this.isBeforeSmallStraight(player1Values)&&this.isBeforeQuadra(player1Values)&&this.data.throwRounds===1){
+      if(this.isToChooseTripleOrStraight()){
+        this.chooseTripleLock(this.data.player1);
+      }else{
+        this.chooseBeforeSmallStraight();
+      }
+    }
     if(this.isBeforeQuadra(player1Values)&&this.data.completeBeforeSmallStraight===false){
       let player = this.chooseTripleLock(this.data.player1) ;
       console.log('isTriple') ;
@@ -880,7 +887,7 @@ Page({
          mark2 = i ;
          break ;
       }
-  }
+    }
     for(let i = 0; i < 5; i++){
       if(i===mark2){
         this.data.player1[indices[i]].isLocked = true;
@@ -950,16 +957,63 @@ chooseSmallStraightLock: function() {
     let mark1 = 8 ;
     let mark2 = 8 ;
     let begin = 0 ;
+    let choice1 = 5;
+    let choice2 = 5;
+    let choice3 = 5;
+    let flag1 = 0 ;
+    let flag2 = 0 ;
+    let mkflag = 0 ;
     console.log(indices) ;
     indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
     console.log(indices) ;
-    for(let i = 0; i < 4; i++) {  // 只有两种连续的四个数字的可能性
+    //判断缺中间的小顺
+    for(let i = 0; i < 4; i++){ 
+      if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value===2){
+        if(i===0){
+          let lastValue = this.data.player1[indices[i+1]].value+1 ;
+          for(let j=0; j<5;j++){
+            if(this.data.player1[indices[j]].value===lastValue){
+              choice1 = 0;
+              choice2 = 1;
+              choice3 = j;
+              flag2 = 1 ;
+            }
+          }
+        }else if(i===3){
+          let frontValue = this.data.player1[indices[i]].value-1 ;
+          for(let j=0; j<5;j++){
+            if(this.data.player1[indices[j]].value===frontValue){
+              choice1 = j ;
+              choice2 = 3 ;
+              choice3 = 4 ;
+              flag2 = 1 ;
+            }
+          }
+        }else{
+          for(let j=0;j<5;j++){
+            let frontValue = this.data.player1[indices[i]].value-1 ;
+            let lastValue = this.data.player1[indices[i+1]].value+1 ;
+            if(this.data.player1[indices[j]].value===frontValue||this.data.player1[indices[j]].value===lastValue){
+              choice1 = i ;
+              choice2 = i+1 ;
+              choice3 = j ;
+              flag2 = 1 ;
+            }
+          }
+        }
+      }
+    }
+    // 判断缺头尾的小顺
+    for(let i = 0; i < 4; i++) {  
         if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value !==1){
           if(this.data.player1[indices[i+1]].value  - this.data.player1[indices[i]].value !==0){
             count = 0 ;
           }
           if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0){
-            mark1 = i ;
+            if(mkflag===0){
+              mark1 = i ;
+              mkflag = 1 ;
+            }
           }
           if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value ===0 && i!==mark1){
             mark2 = i ;
@@ -974,8 +1028,9 @@ chooseSmallStraightLock: function() {
                 if(mark1!==8&&mark2!==8) {break ;}
                 if(mark1!==8&&mark2===8) {
                   if(this.data.player1[indices[i+1]].value - this.data.player1[indices[i]].value > 1){
-                    if(i=0) {begin=1}
-                    if(i=3) {begin=0}
+                    if(i===0) {begin=1}
+                    if(i===1) (begin=2)
+                    if(i===3) {begin=0}
                   }
                 }
                 if(mark1===8&&mark2===8) {
@@ -985,21 +1040,104 @@ chooseSmallStraightLock: function() {
                   }
                 }
               }
-              console.log('在BeforeSmallStraight里的mark的值为：',mark)
-              for(let i = begin; i <= stop; i++){
-                if(i!==mark1&&i!=mark2&&i!==mark){
-                  this.data.player1[indices[i]].isLocked = true;
+              console.log('在BeforeSmallStraight里的mark的值为：',mark) ;
+              console.log('在BeforeSmallStraight里的stop的值为：',stop) ;
+              console.log('在BeforeSmallStraight里的begin的值为：',begin) ;
+              if(flag2===0){
+                console.log("实行一方案");
+                for(let i = begin; i <= stop; i++){
+                  if(i!==mark1&&i!=mark2&&i!==mark){
+                    this.data.player1[indices[i]].isLocked = true;
+                  }
+                }
+                this.data.completeBeforeSmallStraight = true ; 
+                flag1 = 1 ;
+              }
+              if(flag2===1){
+                if(this.data.player1[indices[4]].value-this.data.player1[indices[3]].value===1&&this.data.player1[indices[4]].value-this.data.player1[indices[1]].value===4){
+                  console.log("实行二方案");
+                  for(let j = begin; j <= stop; j++){
+                    if(j!==mark1&&j!=mark2&&j!==mark){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
+                  flag1 = 1 ;
+                }else if(this.data.player1[indices[4]].value-this.data.player1[indices[3]].value===2&&this.data.player1[indices[4]].value-this.data.player1[indices[1]].value===4){
+                  console.log("实行二方案");
+                  for(let j = 0; j < 5; j++){
+                    if(j===choice1||j===choice2||j===choice3){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
+                }else if(this.data.player1[indices[4]].value-this.data.player1[indices[1]].value===2){
+                  console.log("实行一方案");
+                  for(let j = begin; j <= stop; j++){
+                    if(j!==mark1&&j!=mark2&&j!==mark){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
+                  flag1 = 1 ;
+                }else if(this.data.player1[indices[4]].value-this.data.player1[indices[1]].value===3){
+                  console.log("实行二方案");
+                  for(let j = 0; j < 5; j++){
+                    if(j===choice1||j===choice2||j===choice3){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
+                }else if(this.data.player1[indices[4]].value-this.data.player1[indices[0]].value===5&&this.data.player1[indices[4]].value-this.data.player1[indices[2]].value===2){
+                  console.log("实行一方案");
+                  for(let j = begin; j <= stop; j++){
+                    if(j!==mark1&&j!=mark2&&j!==mark){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
+                  flag1 = 1 ;
+                }else{
+                  console.log("实行二方案");
+                  for(let j = 0; j < 5; j++){
+                    if(j===choice1||j===choice2||j===choice3){
+                      this.data.player1[indices[j]].isLocked = true;
+                    }
+                  }
+                  this.data.completeBeforeSmallStraight = true ; 
                 }
               }
-              this.data.completeBeforeSmallStraight = true ; 
               break;
             }
         }
+    }
+    if(flag1===0){
+      console.log("实行二方案");
+      for(let j = 0; j < 5; j++){
+        if(j===choice1||j===choice2||j===choice3){
+          this.data.player1[indices[j]].isLocked = true;
+        }
+      }
+      this.data.completeBeforeSmallStraight = true ; 
     }
     console.log(this.data.player1) ;
     console.log("begin:",begin);
     console.log("mark1:",mark1);
     console.log("mark2:",mark2);
+    console.log("choice1:",indices[choice1]);
+    console.log("choice2:",indices[choice2]);
+    console.log("choice3:",indices[choice3]);
   },
-
+  isToChooseTripleOrStraight: function() {
+    console.log("isToChooseTripleOrStraight");
+    let count = 0 ;
+    let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
+    let mark = 6 ;
+    console.log(indices) ;
+    indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
+    console.log(indices) ;
+    if(this.data.player1[indices[4]].value - this.data.player1[indices[3]].value===0){
+      return true ;
+    }else{return false;}
+  },
 })

@@ -1,26 +1,51 @@
-// app.js
+
 App({
-  onLaunch() {
+  async onLaunch() {
+
     this.globalData.audio = wx.createInnerAudioContext();
-    this.globalData.audio.src = 'https://m801.music.126.net/20231007230124/9510cbb3f861acbcc89d89b166d0ac20/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/9835534795/e5c7/6864/6610/b06524e2e873b78703f5e7004d212973.m4a';
-    // 'https://m701.music.126.net/20231006175903/d43aabd9fcd303def8f85e3d64a6583d/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/9835534795/e5c7/6864/6610/b06524e2e873b78703f5e7004d212973.m4a'
+    this.globalData.audio.src = 'http://music.163.com/song/media/outer/url?id=408055111.mp3';
+
     this.globalData.isPlaying = false;
     // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //获取本地token
+    const token = wx.getStorageSync('token') || ''
+ 
+    //检查token是否过期
+    const res = await loginRequest.post({
+      url: '/auth',
+      header: {
+        token
       }
     })
+    console.log(res);
+ 
+    // 登录
+    if (token && res.message === "已登录") {
+      console.log('请求其他数据');
+    } else {
+      this.handlerLogin()
+    }
   },
-  
+  //登录的回调函数
+  async handlerLogin() {
+    //获取code
+    const code = await getCode()
+ 
+    //将code发给后端请求token
+    const res = await loginRequest.post({
+      url: "/login",
+      data: { code }
+    })
+ 
+    //保存token
+    wx.setStorageSync('token', res.token)
+  },
+
   globalData: {
     userInfo: null,
     audio: null,
     isPlaying: false
-  }
+  },
+
 })

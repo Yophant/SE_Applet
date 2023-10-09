@@ -11,8 +11,8 @@ Page({
     box1Src:"/images/box1.png",
     player1boardSrc:"/images/player1board.png",
     player2boardSrc:"/images/player2board.png",
-    profilephoto1Src:"/images/profilephoto1.png",
-    profilephoto2Src:"/images/profilephoto2.png",
+    profilephoto1Src:"https://img1.imgtp.com/2023/10/09/Kgk14CQQ.jpg",
+    profilephoto2Src:"https://img1.imgtp.com/2023/10/09/J0NzDXWz.png",
     gametableSrc:"/images/gametable.png",
     dicebuttonSrc:"/images/logo.png",
     dice1Src:"/images/dice1.png",
@@ -194,7 +194,7 @@ Page({
     }
   },
   endRound: function() {
-    // 减少玩家指定的回合数
+    // 减少玩家指定的游戏局数
     this.setData({
         userInputgames: this.data.userInputgames - 1 ,
         roundresultShowup : 1,
