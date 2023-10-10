@@ -850,6 +850,7 @@ Page({
     //let count = 0 ;
     let indices = Array.from({length: this.data.player1.length}, (_, i) => i);  // [0, 1, 2, 3, 4]
     let mark = 6 ;
+    let flag = 0 ;
     console.log(indices) ;
     indices.sort((a, b) => this.data.player1[a].value - this.data.player1[b].value);  // 按骰子的值排序索引
     for(let i = 0; i < 4; i++) {  // 只有一组两个相同数字，且没有其他情况
@@ -858,8 +859,14 @@ Page({
            break ;
         }
     }
-    for(let i = 0; i < 5; i++){
-      if(i==mark){
+    if(this.data.player1[indices[3]].value  - this.data.player1[indices[2]].value ==1){
+    	flag=1;
+    	this.data.player1[indices[2]].isLocked = true;
+      this.data.player1[indices[3]].isLocked = true;
+      this.data.player1[indices[4]].isLocked = true;
+    }
+    for(let i = 0; i < 4; i++){
+      if(i===mark&&flag===0){
         this.data.player1[indices[i]].isLocked = true;
         this.data.player1[indices[i+1]].isLocked = true;
       }
