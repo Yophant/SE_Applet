@@ -74,6 +74,7 @@ Page({
       player2: this.generateDiceValues()
      });
      console.log(this.data.playerchips1);
+     this.testRobotDecision();
     // console.log(this.data.userInputchips);
   },
   generateDiceValues: function() {
@@ -1147,4 +1148,15 @@ chooseSmallStraightLock: function() {
       return true ;
     }else{return false;}
   },
+
+testRobotDecision: function(){
+    for(let i=1;i<50;i++){
+        let player = this.generateDiceValues();
+        let playerValues = this.extractDiceValues(player);
+        console.log(playerValues);
+        console.log("是否三连：",this.isBeforeQuadra(playerValues));
+        console.log("是否三顺：",this.isBeforeSmallStraight(playerValues));
+      }
+    }
 })
+

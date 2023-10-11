@@ -11,7 +11,7 @@ Page({
     box1Src:"/images/box1.png",
     player1boardSrc:"/images/player1board.png",
     player2boardSrc:"/images/player2board.png",
-    profilephoto1Src:"https://img1.imgtp.com/2023/10/09/Kgk14CQQ.jpg",
+    profilephoto1Src:"https://img1.imgtp.com/2023/10/09/0A2hStQ4.png",
     profilephoto2Src:"https://img1.imgtp.com/2023/10/09/J0NzDXWz.png",
     gametableSrc:"/images/gametable.png",
     dicebuttonSrc:"/images/logo.png",
@@ -23,6 +23,7 @@ Page({
     dice6Src:"/images/dice6.png",
     houseboardSrc:"/images/houseboard.png",
     roundboardSrc:"/images/lock1.png",
+    EastereggSrc:"https://img1.imgtp.com/2023/10/11/RA1rgBxS.png",
     showHouseBoardUp:false,
     userInputgames:1,
     userInputchips:2,
@@ -39,6 +40,7 @@ Page({
     isPlayer2Chiped: false,
     throwRounds:1,
     roundscoreDifference : 0,
+    showEasterEgg : false
   },
 
   /**
@@ -120,13 +122,15 @@ Page({
     //！！！！！！！！！！！！！！！！！！！！！！！！彩蛋！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
     const targetValues = [5, 3, 4, 2, 6];
     if (this.checkDiceValues(this.data.player1, targetValues) || this.checkDiceValues(this.data.player2, targetValues)) {
-      wx.showToast({
-          title: 'Ke Xiao YYDS！',
-          icon: 'none',
-          duration: 3000
-      });
-    }
-  },
+        this.EasterEggDisplay();
+      }
+    },
+    EasterEggDisplay: function(){
+      this.data.showEasterEgg = true ;
+    },
+    EasterEggTouch: function(){
+      this.data.showEasterEgg = false ;
+    },
   // rethrowDice: function() {
   //   let player1Dices = this.data.player1;
   //   let player2Dices = this.data.player2;

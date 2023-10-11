@@ -80,3 +80,6 @@
  <view>
     <text class="value-chips2">{{playerchips2}}</text>
  </view>
+ <view>
+    <image src="{{EastereggSrc}}" wx:if="{{showEasterEgg}}" class="easteregg" bind:tap="EasterEggTouch" mode="widthFix"></image>
+ </view>

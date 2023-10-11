@@ -432,7 +432,14 @@ page{
   left: 625rpx;
   top: 747rpx;
 }
-
+.easteregg{
+  display: flex;
+  position:absolute;
+  top: 400rpx;
+  right: 0rpx;
+  width: 800rpx;
+  z-index: 20;
+}
 /* .dice-box{
   display: flex;
   position: absolute;
