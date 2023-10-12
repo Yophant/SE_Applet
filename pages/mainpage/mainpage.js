@@ -65,15 +65,15 @@ Page({
   },
   redirectToChoosemode: function() {
     this.handleClick();
-    wx.redirectTo({
-        url: '/pages/choosemode/choosemode'
+    wx.navigateTo({
+      url: '/pages/choosemode/choosemode',
     });
   },
   redirectToRules: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/rules/rules'
-    });
+    wx.navigateTo({
+      url: '/pages/rules/rules',
+    })
   },
   // /**
   //  * 生命周期函数--监听页面加载

@@ -31,7 +31,7 @@ Page({
     player2: [],
     isPlayer1Done: false, // 表示玩家1是否完成选择
     isPlayer2Done: false,
-    showLockText: true,  // 是否显示“请选择需要锁定的骰子”文本
+    showLockText: false,  // 是否显示“请选择需要锁定的骰子”文本
     showLockText2: true,
     showChipChoice: false, // 是否显示“请选择筹码：”文本和筹码选择
     showChipChoice2: false, 
@@ -74,7 +74,7 @@ Page({
       player2: this.generateDiceValues()
      });
      console.log(this.data.playerchips1);
-     this.testRobotDecision();
+    //  this.testRobotDecision();
     // console.log(this.data.userInputchips);
   },
   generateDiceValues: function() {
@@ -146,7 +146,7 @@ Page({
         isPlayer2Done: false,
         isPlayer1Chiped: false,
         isPlayer2Chiped: false,        
-        showLockText: true,
+        showLockText: false,
         showLockText2: true,
         throwRounds : this.data.throwRounds + 1
     });
@@ -278,32 +278,32 @@ Page({
     if (this.data.playerchips1 <= 0) {
       // 显示玩家2获胜的消息
       wx.showToast({
-          title: '恭喜玩家二获胜。十秒后返回主页面',
+          title: '恭喜玩家二获胜。5秒后返回主页面',
           icon: 'none',
-          duration: 10000, // 持续10秒
+          duration: 5000, 
           complete: function() {
-              // 10秒后跳转到mainpage
+              // 5秒后跳转到mainpage
               setTimeout(function() {
-                  wx.redirectTo({
-                      url: '/pages/mainpage/mainpage'
-                  });
-              }, 10000);
+                  wx.navigateBack({
+                    delta: 2
+                  })
+              }, 5000);
           }
       });
       return;
   } else if (this.data.playerchips2 <= 0) {
       // 显示玩家1获胜的消息
       wx.showToast({
-          title: '恭喜玩家一获胜。十秒后返回主页面',
+          title: '恭喜Pluribus获胜。5秒后返回主页面',
           icon: 'none',
-          duration: 10000, // 持续10秒
+          duration: 5000, // 持续5秒
           complete: function() {
-              // 10秒后跳转到mainpage
+              // 5秒后跳转到mainpage
               setTimeout(function() {
-                  wx.redirectTo({
-                      url: '/pages/mainpage/mainpage'
-                  });
-              }, 10000);
+                  wx.navigateBack({
+                    delta: 2
+                  })
+              }, 5000);
           }
       });
       return;
@@ -321,7 +321,7 @@ Page({
         isPlayer2Done: false,
         isPlayer1Chiped: false,
         isPlayer2Chiped: false,        
-        showLockText: true,
+        showLockText: false,
         showLockText2: true,
         targetBeforeQuadra : false ,
         targetBeforeSmallStraight :false ,
@@ -341,44 +341,44 @@ Page({
   resultGame: function() {
     if(this.data.playerchips1>this.data.playerchips2){
       wx.showToast({
-        title: '恭喜玩家一获胜。十秒后返回主页面',
+        title: '恭喜Pluribus获胜。5秒后返回主页面',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续10秒
         complete: function() {
-            // 10秒后跳转到mainpage
+            // 5秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }else if(this.data.playerchips1<this.data.playerchips2){
       wx.showToast({
-        title: '恭喜玩家二下获胜。十秒后返回主页面',
+        title: '恭喜玩家二获胜。5秒后返回主页面',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续10秒
         complete: function() {
             // 10秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }else{
       wx.showToast({
-        title: '玩家一和玩家二棋逢对手，未能决出胜负',
+        title: 'Pluribus和玩家棋逢对手，未能决出胜负',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续5秒
         complete: function() {
-            // 10秒后跳转到mainpage
+            // 5秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }
@@ -441,7 +441,7 @@ Page({
   navigateToMainpage: function() {
     this.handleClick2();
     wx.redirectTo({
-        url: '/pages/mainpage/mainpage'
+      url: '/pages/choosemode/choosemode'
     });
   },
   
@@ -533,18 +533,32 @@ Page({
   robotDecisionFunction: function(player1Dices, player2Values) {
     let self = this 
     let player1Values = this.extractDiceValues(this.data.player1)
+    let totalScore1 = this.scoreCalculate1()+this.getExtraScore(this.data.player1)
+    let totalScore2 = this.scoreCalculate2()+this.getExtraScore(this.data.player2)
+    this.data.robotmutiplying = 0 ;
     if(this.isPenta(player1Values)){
       console.log('isPenta');
       this.data.player1 = this.choosePentaLock(this.data.player1) ;
+      this.data.robotmutiplying = 3 ;
     }
     if(this.isLargeStraight(player1Values)){
       console.log('isLargeStraight');
       this.chooseLargeStraightLock();
+      if(this.isPenta(player2Values)&&this.scoreCalculate1()>this.scoreCalculate2()){
+        this.data.robotmutiplying = 3 ;
+      }else if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 3 ;
+      }
       console.log(this.data.player1);
     }
     if(this.isSmallStraight(player1Values)){
       console.log('isSmallStraight');
       this.chooseSmallStraightLock()  ;
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 2 ;
+      }else{
+        this.data.robotmutiplying = 0 ;
+      }
     }
     if(this.isBeforeSmallStraight(player1Values)&&this.isBeforeQuadra(player1Values)&&this.data.throwRounds===1){
       if(this.isToChooseTripleOrStraight()){
@@ -552,9 +566,15 @@ Page({
       }else{
         this.chooseBeforeSmallStraight();
       }
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
     }
     if(this.isBeforeQuadra(player1Values)&&this.data.completeBeforeSmallStraight===false){
       let player = this.chooseTripleLock(this.data.player1) ;
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
       console.log('isTriple') ;
       this.setData({
         player1 : player 
@@ -563,32 +583,57 @@ Page({
     if (this.isBeforeSmallStraight(player1Values)&&this.data.completeTriple===false&&this.data.completeBeforeSmallStraight===false&&this.data.completeSinglePair===false&&this.data.completeTwoPairs===false) {
       console.log("The dice values have the potential to form a small straight on the next roll!");
       this.chooseBeforeSmallStraight() ;
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
     }
     if (this.isQuadra(player1Values)){
       console.log('isQuadra');
       this.data.player1 = this.chooseQuadraLock(this.data.player1) ;
+      if(this.isQuadra(player2Values)&&totalScore1>totalScore2){
+        this.data.robotmutiplying = 3;
+      }else if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 2;
+      }else{
+        this.data.robotmutiplying = 0 ;
+      }
     }
     if(this.isSinglePair(player1Values)){
       console.log('isSinglePair')
       this.chooseSinglePair() ; 
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
     }
     if(this.isTwoPairs(player1Values)&&this.data.throwRounds===1&&!this.isBeforeQuadra(player1Values)&&!this.isBeforeSmallStraight(player1Values)){
       console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
       this.chooseTwoPairs() ;
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
     }
     if(this.isTwoPairs(player1Values)&&this.data.throwRounds===2&&this.data.isSinglePair===false){
       if(this.data.completeTwoPairs===false){
         console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
         this.chooseTwoPairs() ;
+        if(totalScore1>totalScore2){
+          this.data.robotmutiplying = 1 ;
+        }
       }
       if(this.data.completeTriple){
         console.log('isTwoPairsisTwoPairsisTwoPairsisTwoPairsisTwoPairs') ;
         this.chooseTwoPairs() ;
+        if(totalScore1>totalScore2){
+          this.data.robotmutiplying = 1 ;
+        }
       }
     }
     if(this.isBeforeQuadra(player1Values)&&(this.data.completeSinglePair||this.data.completeTwoPairs)){
       let player = this.chooseTripleLock(this.data.player1) ;
       this.data.player1 = player ;
+      if(totalScore1>totalScore2){
+        this.data.robotmutiplying = 1 ;
+      }
     }
     //根据player2Values数组来决策
     console.log("玩家一的得分为:",this.scoreCalculate1())
@@ -1149,14 +1194,14 @@ chooseSmallStraightLock: function() {
     }else{return false;}
   },
 
-testRobotDecision: function(){
-    for(let i=1;i<50;i++){
-        let player = this.generateDiceValues();
-        let playerValues = this.extractDiceValues(player);
-        console.log(playerValues);
-        console.log("是否三连：",this.isBeforeQuadra(playerValues));
-        console.log("是否三顺：",this.isBeforeSmallStraight(playerValues));
-      }
-    }
+// testRobotDecision: function(){
+//     for(let i=1;i<50;i++){
+//         let player = this.generateDiceValues();
+//         let playerValues = this.extractDiceValues(player);
+//         console.log(playerValues);
+//         console.log("是否三连：",this.isBeforeQuadra(playerValues));
+//         console.log("是否三顺：",this.isBeforeSmallStraight(playerValues));
+//       }
+//     }
 })
 

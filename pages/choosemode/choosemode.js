@@ -50,27 +50,28 @@ Page({
   },
   redirectToTarget: function() {
     this.handleClick();
-    wx.redirectTo({
-        url: '/pages/mainpage/mainpage'
-    });
+    wx.navigateBack({
+      delta: 1
+    })
   },
   redirectToRanking: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/ranking/ranking'
-    });
+    wx.navigateTo({
+      url: '/pages/ranking/ranking'
+    })
   },
   redirectToRules: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/rules/rules'
-    });
+    wx.navigateTo({
+      url: '/pages/rules/rules'
+    })
+
   },
   redirectToFunpvp: function() {
     this.handleClick2();
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/funpvpsetting/funpvpsetting'
-    });
+    })
   },
   redirectToOnlinepvp: function() {
     this.handleClick2();
@@ -82,15 +83,15 @@ Page({
   },
   redirectToPvppage: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/gamesetting/gamesetting'
-    });
+    wx.navigateTo({
+      url: '/pages/gamesetting/gamesetting'
+    })
   },
   redirectToPvaipage: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/pvaisetting/pvaisetting'
-    });
+    wx.navigateTo({
+      url: '/pages/pvaisetting/pvaisetting'
+    })
   },
 
 

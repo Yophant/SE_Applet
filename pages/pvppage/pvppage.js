@@ -241,32 +241,32 @@ Page({
     if (this.data.playerchips1 <= 0) {
       // 显示玩家2获胜的消息
       wx.showToast({
-          title: '恭喜玩家二获胜。十秒后返回主页面',
+          title: '恭喜玩家二获胜。5秒后返回主页面',
           icon: 'none',
-          duration: 10000, // 持续10秒
+          duration: 5000, // 持续5秒
           complete: function() {
-              // 10秒后跳转到mainpage
+              // 5秒后跳转到mainpage
               setTimeout(function() {
-                  wx.redirectTo({
-                      url: '/pages/mainpage/mainpage'
-                  });
-              }, 10000);
+                  wx.navigateBack({
+                    delta: 2
+                  })
+              }, 5000);
           }
       });
       return;
   } else if (this.data.playerchips2 <= 0) {
       // 显示玩家1获胜的消息
       wx.showToast({
-          title: '恭喜玩家一获胜。十秒后返回主页面',
+          title: '恭喜玩家一获胜。5秒后返回主页面',
           icon: 'none',
-          duration: 10000, // 持续10秒
+          duration: 5000, // 持续5秒
           complete: function() {
-              // 10秒后跳转到mainpage
+              // 5秒后跳转到mainpage
               setTimeout(function() {
-                  wx.redirectTo({
-                      url: '/pages/mainpage/mainpage'
-                  });
-              }, 10000);
+                  wx.navigateBack({
+                    delta: 2
+                  })
+              }, 5000);
           }
       });
       return;
@@ -294,44 +294,44 @@ Page({
   resultGame: function() {
     if(this.data.playerchips1>this.data.playerchips2){
       wx.showToast({
-        title: '恭喜玩家一获胜。十秒后返回主页面',
+        title: '恭喜玩家一获胜。5秒后返回主页面',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续5秒
         complete: function() {
             // 10秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }else if(this.data.playerchips1<this.data.playerchips2){
       wx.showToast({
-        title: '恭喜玩家二下获胜。十秒后返回主页面',
+        title: '恭喜玩家二下获胜。5秒后返回主页面',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续5秒
         complete: function() {
-            // 10秒后跳转到mainpage
+            // 5秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }else{
       wx.showToast({
         title: '玩家一和玩家二棋逢对手，未能决出胜负',
         icon: 'none',
-        duration: 10000, // 持续10秒
+        duration: 5000, // 持续5秒
         complete: function() {
-            // 10秒后跳转到mainpage
+            // 5秒后跳转到mainpage
             setTimeout(function() {
-                wx.redirectTo({
-                    url: '/pages/mainpage/mainpage'
-                });
-            }, 10000);
+                wx.navigateBack({
+                  delta: 2
+                })
+            }, 5000);
         }
       });
     }
@@ -393,9 +393,9 @@ Page({
   //跳转到主页
   navigateToMainpage: function() {
     this.handleClick2();
-    wx.redirectTo({
-        url: '/pages/mainpage/mainpage'
-    });
+    wx.navigateBack({
+        delta: 2
+    })
   },
   
 

@@ -68,7 +68,7 @@
 </view>
 <view class="roundresultboard" wx:if="{{roundresultShowup}}">
     <image src="{{roundboardSrc}}" class="roundboard" mode="widthFix"/>
-    <text class="textroundresult">玩家一从玩家二中得到了{{roundscoreDifference}}筹码</text>
+    <text class="textroundresult">Pluribus从玩家手中得到了{{roundscoreDifference}}筹码</text>
     <!-- 点击进入下一局 -->
     <view class="textclicktonextround">点击进行下一局</view>
     <view class="link-area-confirmtonext" bindtap="reStartRound"></view>
